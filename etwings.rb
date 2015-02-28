@@ -11,7 +11,6 @@ module Etwings
     class APIErrorException < StandardError; end
     
     class API
-
         def initialize(opt = {})
             @cool_down = opt[:cool_down] || true
             @cool_down_time = opt[:cool_down_time] || 2
@@ -20,16 +19,22 @@ module Etwings
             @etwings_trade_url = ""
         end
 
+        #
         # Public API
-        
+        #
+
         # Get last price of *currency_code* / *counter_currency_code*.
         def get_last_price(currency_code, counter_currency_code = "jpy")
             json = get_ssl(@etwings_public_url + "last_price/" + currency_code + "_" + counter_currency_code)
             return json["last_price"]
         end
 
+        #
         # Class private method
+        #
+
         private
+
         # Connect to address via https, and return json reponse.
         def get_ssl(address)
             uri = URI.parse(address)
