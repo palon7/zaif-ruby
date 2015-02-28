@@ -4,6 +4,8 @@ Etwings API wrapper for ruby.
 
 ## Installation
 
+*Note: This gem is not yet published to rubygems.*
+
 Add this line to your application's Gemfile:
 
     gem 'etwings'
