@@ -1,4 +1,4 @@
-require "./etwings.rb"
+require "etwings"
 require "pp"
 api = Etwings::API.new
 
