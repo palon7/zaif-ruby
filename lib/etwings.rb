@@ -58,12 +58,20 @@ module Etwings
         # Trade API
         #
         
-        # Get etwings user infomation.
+        # Get user infomation.
         # Need api key.
         def get_info
             json = post_ssl(@etwings_trade_url, "get_info", {})
             return json
         end
+        
+        # Get trade history.
+        # Need api key.
+        def get_trade_history(option = {})
+            json = post_ssl(@etwings_trade_url, "trade_history", option)
+            return json
+        end
+
 
         #
         # Class private method
@@ -134,7 +142,7 @@ module Etwings
                         raise JSONException, response.body if json == nil
                         raise APIErrorException, json["error"] if json.is_a?(Hash) && json["success"] == 0
                         get_cool_down
-                        return json
+                        return json["return"]
                     else
                         raise ConnectionFailedException, "Failed to connect to etwings: " + response.value
                     end

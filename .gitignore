@@ -1,4 +1,5 @@
 *~
+*.sh
 pkg/*
 doc/*
 Gemfile.lock
