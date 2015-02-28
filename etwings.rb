@@ -29,6 +29,24 @@ module Etwings
             return json["last_price"]
         end
 
+        # Get ticker of *currency_code* / *counter_currency_code*.
+        def get_ticker(currency_code, counter_currency_code = "jpy")
+            json = get_ssl(@etwings_public_url + "ticker/" + currency_code + "_" + counter_currency_code)
+            return json
+        end
+
+        # Get trades of *currency_code* / *counter_currency_code*.
+        def get_trades(currency_code, counter_currency_code = "jpy")
+            json = get_ssl(@etwings_public_url + "trades/" + currency_code + "_" + counter_currency_code)
+            return json
+        end
+
+        # Get depth of *currency_code* / *counter_currency_code*.
+        def get_depth(currency_code, counter_currency_code = "jpy")
+            json = get_ssl(@etwings_public_url + "depth/" + currency_code + "_" + counter_currency_code)
+            return json
+        end
+
         #
         # Class private method
         #
