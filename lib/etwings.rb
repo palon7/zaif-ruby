@@ -6,11 +6,10 @@ require 'uri'
 require 'net/http'
 require 'time'
 
+require "etwings/version"
+require "etwings/exceptions"
+
 module Etwings
-    class ConnectionFailedException < StandardError; end
-    class APIErrorException < StandardError; end
-    class JSONException < StandardError; end
-    
     class API
         def initialize(opt = {})
             @cool_down = opt[:cool_down] || true
