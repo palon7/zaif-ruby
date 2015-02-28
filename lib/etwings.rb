@@ -65,15 +65,67 @@ module Etwings
             return json
         end
         
-        # Get trade history.
+        # Get your trade history.
         # Avalible options: from. count, from_id, end_id, order, since, end, currency_pair
         # Need api key.
-        def get_trade_history(option = {})
+        def get_my_trades(option = {})
             json = post_ssl(@etwings_trade_url, "trade_history", option)
-            json["datetime"] = Time.at(json["timestamp"])
+            # Convert to datetime
+            json.each do|k, v|
+                v["datetime"] = Time.at(v["timestamp"].to_i)
+            end
+
             return json
         end
 
+        # Get your active orders.
+        # Avalible options: currency_pair
+        # Need api key.
+        def get_active_orders(option = {})
+            json = post_ssl(@etwings_trade_url, "active_orders", option)
+            # Convert to datetime
+            json.each do|k, v|
+                v["datetime"] = Time.at(v["timestamp"].to_i)
+            end
+
+            return json
+        end
+        # Issue trade.
+        # Need api key.
+        def trade(currency_code, price, amount, action, counter_currency_code = "jpy")
+            currency_pair = currency_code + "_" + counter_currency_code
+            json = post_ssl(@etwings_trade_url, "trade", {:currency_pair => currency_pair, :action => action, :price => price, :amount => amount})
+            return json
+        end
+
+        # Issue bid order.
+        # Need api key.
+        def bid(currency_code, price, amount, counter_currency_code = "jpy")
+            return trade(currency_code, price, amount, "bid", counter_currency_code)
+        end
+
+        # Issue ask order.
+        # Need api key.
+        def ask(currency_code, price, amount, counter_currency_code = "jpy")
+            return trade(currency_code, price, amount, "ask", counter_currency_code)
+        end
+
+        # Cancel order.
+        # Need api key.
+        def cancel(order_id)
+            json = post_ssl(@etwings_trade_url, "cancel_order", {:order_id => order_id})
+            return json
+        end
+        
+        # Withdraw funds.
+        # Need api key.
+        def withdraw(currency_code, address, amount, option = {})
+            option["currency"] = currency_code
+            option["address"] = address
+            option["amount"] = amount
+            json = post_ssl(@etwings_trade_url, "withdraw", option)
+            return json
+        end
 
         #
         # Class private method

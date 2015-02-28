@@ -20,7 +20,15 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require 'etwings'
+
+api = Etwings::API.new(:api_key => ETWINGS_KEY, :api_secret => ETWINGS_SECRET)
+api.bid("btc", 30760, 0.0001)
+api.ask("btc", 30320, 0.0001)
+
+api.get_info
+```
 
 ## Contributing
 
