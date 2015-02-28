@@ -9,6 +9,7 @@ require 'time'
 module Etwings
     class ConnectionFailedException < StandardError; end
     class APIErrorException < StandardError; end
+    class JSONException < StandardError; end
     
     class API
         def initialize(opt = {})
@@ -69,7 +70,8 @@ module Etwings
                     case response
                     when Net::HTTPSuccess
                         json = JSON.parse(response.body)
-                        if json.has_key?("error")
+                        raise JSONException, response.body if json == nil
+                        if json.is_a?(Hash) and json.has_key?("error")
                             raise APIErrorException, json["error"]
                         end
                         get_cool_down
