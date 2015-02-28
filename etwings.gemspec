@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["palon7@gmail.com"]
   spec.summary       = %q{Etwings API wrapper.}
   spec.description   = %q{Etwings API wrapper for monacoin/bitcoin trade.}
-  spec.homepage      = ""
+  spec.homepage      = "https://github.com/palon7/etwings-ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")
@@ -19,6 +19,6 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.6"
-  spec.add_development_dependency "rake"
-  spec.add_development_dependency "rspec"
+  spec.add_development_dependency "rake", "~>0"
+  spec.add_development_dependency "rspec", "~>0"
 end
