@@ -66,9 +66,11 @@ module Etwings
         end
         
         # Get trade history.
+        # Avalible options: from. count, from_id, end_id, order, since, end, currency_pair
         # Need api key.
         def get_trade_history(option = {})
             json = post_ssl(@etwings_trade_url, "trade_history", option)
+            json["datetime"] = Time.at(json["timestamp"])
             return json
         end
 
