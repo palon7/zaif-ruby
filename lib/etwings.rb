@@ -154,7 +154,6 @@ module Etwings
 
         def get_nonce
             time = Time.now.to_f
-            p time.to_i
             return time.to_i
         end
 
