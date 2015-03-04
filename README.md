@@ -18,6 +18,8 @@ Or install it yourself as:
 
 ## Usage
 
+**rubydocs for repository**: http://www.rubydoc.info/github/palon7/etwings/master/Etwings
+
 ```ruby
 require 'etwings'
 

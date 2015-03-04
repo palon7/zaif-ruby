@@ -17,8 +17,8 @@ module Etwings
             @cert_path = opt[:cert_path] || nil
             @api_key = opt[:api_key] || nil
             @api_secret = opt[:api_secret] || nil
-            @etwings_public_url = "https://exchange.etwings.com/api/1/"
-            @etwings_trade_url = "https://exchange.etwings.com/tapi"
+            @etwings_public_url = "https://api.zaif.jp/api/1/"
+            @etwings_trade_url = "https://api.zaif.jp/tapi"
         end
 
         def set_api_key(api_key, api_secret)
@@ -31,24 +31,32 @@ module Etwings
         #
 
         # Get last price of *currency_code* / *counter_currency_code*.
+        # @param [String]  currency_code Base     currency code
+        # @param [String]  counter_currency_code  Counter currency code
         def get_last_price(currency_code, counter_currency_code = "jpy")
             json = get_ssl(@etwings_public_url + "last_price/" + currency_code + "_" + counter_currency_code)
             return json["last_price"]
         end
 
         # Get ticker of *currency_code* / *counter_currency_code*.
+        # @param [String]  currency_code Base     currency code
+        # @param [String]  counter_currency_code  Counter currency code
         def get_ticker(currency_code, counter_currency_code = "jpy")
             json = get_ssl(@etwings_public_url + "ticker/" + currency_code + "_" + counter_currency_code)
             return json
         end
 
         # Get trades of *currency_code* / *counter_currency_code*.
+        # @param [String]  currency_code Base     currency code
+        # @param [String]  counter_currency_code  Counter currency code
         def get_trades(currency_code, counter_currency_code = "jpy")
             json = get_ssl(@etwings_public_url + "trades/" + currency_code + "_" + counter_currency_code)
             return json
         end
 
         # Get depth of *currency_code* / *counter_currency_code*.
+        # @param [String]  currency_code Base     currency code
+        # @param [String]  counter_currency_code  Counter currency code
         def get_depth(currency_code, counter_currency_code = "jpy")
             json = get_ssl(@etwings_public_url + "depth/" + currency_code + "_" + counter_currency_code)
             return json
@@ -60,6 +68,7 @@ module Etwings
         
         # Get user infomation.
         # Need api key.
+        # @return [Hash] Infomation of user.
         def get_info
             json = post_ssl(@etwings_trade_url, "get_info", {})
             return json
@@ -68,6 +77,7 @@ module Etwings
         # Get your trade history.
         # Avalible options: from. count, from_id, end_id, order, since, end, currency_pair
         # Need api key.
+        # @param [Hash] 
         def get_my_trades(option = {})
             json = post_ssl(@etwings_trade_url, "trade_history", option)
             # Convert to datetime
