@@ -1,16 +1,16 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'etwings/version'
+require 'zaif/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "etwings"
-  spec.version       = Etwings::VERSION
+  spec.name          = "zaif"
+  spec.version       = Zaif::VERSION
   spec.authors       = ["Palon"]
   spec.email         = ["palon7@gmail.com"]
-  spec.summary       = %q{Etwings API wrapper.}
-  spec.description   = %q{Etwings API wrapper for monacoin/bitcoin trade.}
-  spec.homepage      = "https://github.com/palon7/etwings-ruby"
+  spec.summary       = %q{Zaif API wrapper.}
+  spec.description   = %q{Zaif API wrapper for monacoin/bitcoin trade.}
+  spec.homepage      = "https://github.com/palon7/zaif-ruby"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0")

@@ -1,12 +1,12 @@
-# Etwings
+# Zaif
 
-Etwings API wrapper for ruby.
+Zaif API wrapper for ruby.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'etwings'
+    gem 'zaif'
 
 And then execute:
 
@@ -14,16 +14,14 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install etwings
+    $ gem install zaif
 
 ## Usage
 
-**rubydocs for repository**: http://www.rubydoc.info/github/palon7/etwings/master/Etwings
-
 ```ruby
-require 'etwings'
+require 'zaif'
 
-api = Etwings::API.new(:api_key => ETWINGS_KEY, :api_secret => ETWINGS_SECRET)
+api = zaif::API.new(:api_key => ZAIF_KEY, :api_secret => ZAIF_SECRET)
 api.bid("btc", 30760, 0.0001)
 api.ask("btc", 30320, 0.0001)
 
@@ -32,7 +30,7 @@ api.get_info
 
 ## Contributing
 
-1. Fork it ( https://github.com/palon7/etwings/fork )
+1. Fork it ( https://github.com/palon7/zaif-ruby/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)

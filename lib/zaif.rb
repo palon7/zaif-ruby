@@ -6,10 +6,10 @@ require 'uri'
 require 'net/http'
 require 'time'
 
-require "etwings/version"
-require "etwings/exceptions"
+require "zaif/version"
+require "zaif/exceptions"
 
-module Etwings
+module Zaif
     class API
         def initialize(opt = {})
             @cool_down = opt[:cool_down] || true
@@ -17,8 +17,8 @@ module Etwings
             @cert_path = opt[:cert_path] || nil
             @api_key = opt[:api_key] || nil
             @api_secret = opt[:api_secret] || nil
-            @etwings_public_url = "https://api.zaif.jp/api/1/"
-            @etwings_trade_url = "https://api.zaif.jp/tapi"
+            @zaif_public_url = "https://api.zaif.jp/api/1/"
+            @zaif_trade_url = "https://api.zaif.jp/tapi"
         end
 
         def set_api_key(api_key, api_secret)
@@ -34,7 +34,7 @@ module Etwings
         # @param [String]  currency_code Base     currency code
         # @param [String]  counter_currency_code  Counter currency code
         def get_last_price(currency_code, counter_currency_code = "jpy")
-            json = get_ssl(@etwings_public_url + "last_price/" + currency_code + "_" + counter_currency_code)
+            json = get_ssl(@zaif_public_url + "last_price/" + currency_code + "_" + counter_currency_code)
             return json["last_price"]
         end
 
@@ -42,7 +42,7 @@ module Etwings
         # @param [String]  currency_code Base     currency code
         # @param [String]  counter_currency_code  Counter currency code
         def get_ticker(currency_code, counter_currency_code = "jpy")
-            json = get_ssl(@etwings_public_url + "ticker/" + currency_code + "_" + counter_currency_code)
+            json = get_ssl(@zaif_public_url + "ticker/" + currency_code + "_" + counter_currency_code)
             return json
         end
 
@@ -50,7 +50,7 @@ module Etwings
         # @param [String]  currency_code Base     currency code
         # @param [String]  counter_currency_code  Counter currency code
         def get_trades(currency_code, counter_currency_code = "jpy")
-            json = get_ssl(@etwings_public_url + "trades/" + currency_code + "_" + counter_currency_code)
+            json = get_ssl(@zaif_public_url + "trades/" + currency_code + "_" + counter_currency_code)
             return json
         end
 
@@ -58,7 +58,7 @@ module Etwings
         # @param [String]  currency_code Base     currency code
         # @param [String]  counter_currency_code  Counter currency code
         def get_depth(currency_code, counter_currency_code = "jpy")
-            json = get_ssl(@etwings_public_url + "depth/" + currency_code + "_" + counter_currency_code)
+            json = get_ssl(@zaif_public_url + "depth/" + currency_code + "_" + counter_currency_code)
             return json
         end
 
@@ -70,7 +70,7 @@ module Etwings
         # Need api key.
         # @return [Hash] Infomation of user.
         def get_info
-            json = post_ssl(@etwings_trade_url, "get_info", {})
+            json = post_ssl(@zaif_trade_url, "get_info", {})
             return json
         end
         
@@ -79,7 +79,7 @@ module Etwings
         # Need api key.
         # @param [Hash] 
         def get_my_trades(option = {})
-            json = post_ssl(@etwings_trade_url, "trade_history", option)
+            json = post_ssl(@zaif_trade_url, "trade_history", option)
             # Convert to datetime
             json.each do|k, v|
                 v["datetime"] = Time.at(v["timestamp"].to_i)
@@ -92,7 +92,7 @@ module Etwings
         # Avalible options: currency_pair
         # Need api key.
         def get_active_orders(option = {})
-            json = post_ssl(@etwings_trade_url, "active_orders", option)
+            json = post_ssl(@zaif_trade_url, "active_orders", option)
             # Convert to datetime
             json.each do|k, v|
                 v["datetime"] = Time.at(v["timestamp"].to_i)
@@ -104,7 +104,7 @@ module Etwings
         # Need api key.
         def trade(currency_code, price, amount, action, counter_currency_code = "jpy")
             currency_pair = currency_code + "_" + counter_currency_code
-            json = post_ssl(@etwings_trade_url, "trade", {:currency_pair => currency_pair, :action => action, :price => price, :amount => amount})
+            json = post_ssl(@zaif_trade_url, "trade", {:currency_pair => currency_pair, :action => action, :price => price, :amount => amount})
             return json
         end
 
@@ -123,7 +123,7 @@ module Etwings
         # Cancel order.
         # Need api key.
         def cancel(order_id)
-            json = post_ssl(@etwings_trade_url, "cancel_order", {:order_id => order_id})
+            json = post_ssl(@zaif_trade_url, "cancel_order", {:order_id => order_id})
             return json
         end
         
@@ -133,7 +133,7 @@ module Etwings
             option["currency"] = currency_code
             option["address"] = address
             option["amount"] = amount
-            json = post_ssl(@etwings_trade_url, "withdraw", option)
+            json = post_ssl(@zaif_trade_url, "withdraw", option)
             return json
         end
 
@@ -170,7 +170,7 @@ module Etwings
                         get_cool_down
                         return json
                     else
-                        raise ConnectionFailedException, "Failed to connect to etwings."
+                        raise ConnectionFailedException, "Failed to connect to zaif."
                     end
                 }
             rescue
@@ -208,7 +208,7 @@ module Etwings
                         get_cool_down
                         return json["return"]
                     else
-                        raise ConnectionFailedException, "Failed to connect to etwings: " + response.value
+                        raise ConnectionFailedException, "Failed to connect to zaif: " + response.value
                     end
                 }
             rescue

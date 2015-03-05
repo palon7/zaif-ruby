@@ -1,3 +1,3 @@
-module Etwings
+module Zaif
   VERSION = "0.0.2"
 end
