@@ -21,7 +21,7 @@ Or install it yourself as:
 ```ruby
 require 'zaif'
 
-api = zaif::API.new(:api_key => ZAIF_KEY, :api_secret => ZAIF_SECRET)
+api = Zaif::API.new(:api_key => ZAIF_KEY, :api_secret => ZAIF_SECRET)
 api.bid("btc", 30760, 0.0001)
 api.ask("btc", 30320, 0.0001)
 
